@@ -1,0 +1,12 @@
+# CODEOWNERS — MindMesh
+#
+# 这个仓库自带一条特殊约束（AGENTS.md 第 18 条）：
+#   **AGENTS.md 只能由人类维护者合并。**
+# 所以下面把它单独指给仓库所有者。
+
+*                       @programmingWTF
+
+/AGENTS.md              @programmingWTF
+/LICENSE                @programmingWTF
+/NOTICE                 @programmingWTF
+/.github/               @programmingWTF

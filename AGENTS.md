@@ -5,6 +5,44 @@
 
 ---
 
+## 项目速览（给 AI 编码 Agent）
+
+**MindMesh** 是一个「多 Agent 共享记忆 + 技能 + 协作规则」的 Git **参考架构**。
+**没有构建过程，没有运行时依赖，仓库本身就是产物。**
+
+| 项 | 值 |
+|---|---|
+| 形态 | 文档为主（Markdown）+ Shell + Python 3 |
+| 构建 | 无 |
+| 依赖 | 无（看板只用 Python 标准库） |
+| 许可 | Apache-2.0 |
+
+### 常用命令
+
+| 目的 | 命令 |
+|---|---|
+| 治理审计 | `bash Scripts/audit.sh` |
+| 提交前密钥扫描 | `bash Scripts/leakscan.sh` |
+| 本机体检 | `bash Scripts/check-env.sh` |
+| 记忆同步 | `bash Scripts/sync.sh <AgentName>` |
+| 起看板 | `cd Dashboard && MINDMESH_ROOT="$(cd .. && pwd)" python3 server.py` |
+| 全量检查 | 推送后会跑 `.github/workflows/ci.yml` |
+
+### 改动约定
+
+- **一个 PR = 一件事。**不要在无关文件上顺手改。
+- 提交必须带 `Agent: <名字>` trailer（第 9 条）。
+- **`AGENTS.md` 只能由人类维护者合并**（第 18 条）。
+- **不引入新的运行时依赖**——除非有非常强的理由。
+
+### 最容易踩的三个坑
+
+1. 把「所有 Agent 都该知道的事」只写进自己的 `Memory/` —— **等于没写**，别人不会去翻你的目录。
+2. 忘记 `git pull --rebase` 就开始写。
+3. 在看板里加写操作 —— **看板必须永远只读。**
+
+---
+
 ## 0. 拿到仓库的第一件事：`git pull --rebase`
 
 ```bash

@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 密钥泄漏扫描
+        run: bash Scripts/leakscan.sh
+
+      - name: Shell 脚本语法检查
+        run: |
+          fail=0
+          for f in Scripts/*.sh; do
+            if bash -n "$f"; then echo "ok   $f"; else echo "FAIL $f"; fail=1; fi
+          done
+          exit $fail
+
+      - name: Python 语法检查
+        run: |
+          python3 -m py_compile Dashboard/server.py && echo "ok   Dashboard/server.py"
+
+      - name: 受管文件命名规范（PascalCase）
+        run: |
+          bad=$(git ls-files \
+            | grep -vE '^README|^LICENSE|^NOTICE|^CONTRIBUTING|^SECURITY|^CODE_OF_CONDUCT|^CHANGELOG|^VISION|^LABELS' \
+            | grep -vE '^\.github/' \
+            | grep -E '\.(md|sh|py|json|ya?ml)$' \
+            | grep -vE '(^|/)(AGENTS|CLAUDE|SKILL|README|LICENSE|NOTICE)\.md$' \
+            | grep -vE '/?[0-9]{4}-[0-9]{2}-[0-9]{2}' \
+            | grep -E '[a-z]-[a-z]|_' || true)
+          if [ -n "$bad" ]; then
+            echo "::warning::以下文件不符合 PascalCase："
+            echo "$bad"
+          fi
+          echo "（警告不阻断——有些文件名是约定俗成）"
+
+      - name: 看板可启动性
+        run: |
+          cd Dashboard
+          MINDMESH_ROOT="$(cd .. && pwd)" MINDMESH_PORT=3399 timeout 20 python3 server.py &
+          sleep 3
+          curl -sS -m 8 "http://127.0.0.1:3399/api/summary" | head -c 200
+          echo
+          code=$(curl -s -o /dev/null -w '%{http_code}' -m 8 "http://127.0.0.1:3399/api/file?path=AGENTS.md")
+          echo "AGENTS.md 未登录访问 -> $code（预期 403）"
+          test "$code" = "403"

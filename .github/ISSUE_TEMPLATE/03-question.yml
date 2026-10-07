@@ -1,0 +1,33 @@
+name: ❓ 提问
+description: 使用或设计上的疑问
+title: "[Question]: "
+labels: ["❓ question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: 你的问题
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景
+      description: 你有几个 Agent？用什么远端？在哪一步卡住了？
+      value: |
+        - Agent 数量与名字：
+        - Git 远端：
+        - 已尝试：
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 确认
+      options:
+        - label: 我已经查过 Docs/ 与 SkillsList.md
+          required: true
+        - label: 我已经跑过 git pull --rebase
+          required: true

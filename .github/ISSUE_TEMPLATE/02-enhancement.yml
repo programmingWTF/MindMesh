@@ -1,0 +1,58 @@
+name: ✨ 功能建议
+description: 提一个想法，或指出这个架构缺了什么
+title: "[Feature]: "
+labels: ["✨ enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ 在写之前，先过一遍这个项目唯一的判断标准：
+
+        > **它是否让「多个 Agent 共享同一套上下文」这件事更简单？**
+
+        如果答案是「它让某个单一 Agent 更强」，那它大概率不属于这里。
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你遇到的真实问题
+      description: 不要先说方案，先说痛。
+      placeholder: 我现在有 3 个 Agent，每次换人我都要……
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 你希望它怎么做
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 你试过的替代方案
+      description: 包括「用别的东西解决了」——那也是一种答案。
+    validations:
+      required: false
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 改动规模
+      options:
+        - 小（改文档 / 加一个技能）
+        - 中（加一个脚本或模块）
+        - 大（改协议或架构）
+        - 不确定
+      default: 3
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 确认
+      options:
+        - label: 我已经读过 Docs/Architecture.md 与 Docs/Faq.md
+          required: true

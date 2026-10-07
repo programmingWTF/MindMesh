@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 先读文档
+    url: https://github.com/programmingWTF/MindMesh/blob/main/Docs/Faq.md
+    about: 大部分「怎么用 / 为什么这么设计」的问题，FAQ 与 Docs/ 里已经有答案
+  - name: 🔒 安全漏洞
+    url: https://github.com/programmingWTF/MindMesh/security/policy
+    about: 涉及密钥、凭据、暴露面的问题请走私密渠道，不要开公开 issue

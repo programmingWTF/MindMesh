@@ -2,6 +2,12 @@
 
 > **多个 Agent，同一个心智。**
 
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
+[![Status](https://img.shields.io/badge/status-reference%20architecture-orange.svg)](./VISION.md)
+[![Server](https://img.shields.io/badge/server-not%20required-brightgreen.svg)](./Docs/ZeroServer.md)
+[![Agents](https://img.shields.io/badge/agents-any%20of%20them-8a2be2.svg)](./AGENTS.md)
+[![Labels](https://img.shields.io/badge/labels-taxonomy-6e7781.svg)](./LABELS.md)
+
 MindMesh 是一个 **Git 仓库**——里面装着你的 AI 搭档的**记忆**、**技能**和**协作协议**。
 
 任何 Agent（Claude Code / Codex / Cursor / Copilot / Gemini CLI / 自建 Agent……）拿到这个仓库之后，
@@ -9,6 +15,8 @@ MindMesh 是一个 **Git 仓库**——里面装着你的 AI 搭档的**记忆**
 
 > 这不是一个插件，不是一个服务，也不是一个一键安装包。
 > **它是一个方案、一套思路、一种架构。**请按你的实际情况改造它。
+
+![MindMesh 架构](Docs/Architecture.svg)
 
 ---
 

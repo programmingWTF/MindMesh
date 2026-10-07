@@ -2,6 +2,11 @@
 
 ## 全貌
 
+![MindMesh 架构](Architecture.svg)
+
+<details>
+<summary>同一张图的纯文本版本（便于 diff 与复制）</summary>
+
 ```text
                 ┌──────────────────────────────────────────┐
                 │            Git 远端（GitHub / 自建）       │
@@ -18,6 +23,8 @@
                  ────────────────────────────────
                  Skills/  Docs/  顶层文档         ← 只读 + PR
 ```
+
+</details>
 
 ---
 

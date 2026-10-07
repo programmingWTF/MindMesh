@@ -1,0 +1,85 @@
+name: 🐛 Bug 报告
+description: 报告一个不符合预期的行为
+title: "[Bug]: "
+labels: ["🐛 bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你花时间填写。**请先确认这不是配置问题**——这个项目是一个参考架构，
+        很多「不工作」其实来自本机路径、凭据或 Git 远端设置。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 发生了什么
+      description: 一句话说清楚现象。
+      placeholder: 我做了什么，然后发生了什么
+    validations:
+      required: true
+
+  - type: textarea
+    id: where
+    attributes:
+      label: 涉及哪个部分
+      description: 协议 / 技能 / 脚本 / 看板 / 文档，以及具体文件路径。
+      placeholder: 例如 Scripts/audit.sh、Dashboard/server.py
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 请给出**可以直接复制执行**的命令序列。
+      placeholder: |
+        1. cd <仓库路径>
+        2. bash Scripts/audit.sh
+        3. 看到 ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 你期望的结果
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境
+      value: |
+        - 操作系统：
+        - Shell / 运行时版本：
+        - Git 版本：
+        - 提交 / 版本：
+    validations:
+      required: false
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: 影响面
+      description: 这个问题最坏的后果是什么？（用于判定优先级）
+      options:
+        - 💥 密钥 / 凭据边界被突破
+        - 🗑️ 记忆被覆盖或丢失
+        - 🧨 仓库被写坏 / 历史被改写
+        - ⚖️ 协议有歧义，多个 Agent 行为不一致
+        - 🔌 只在我的机器上能跑
+        - 🧷 其它
+      default: 5
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 确认
+      options:
+        - label: 我已经搜过现有 issue，这不是重复的
+          required: true
+        - label: 我没有在内容里粘贴任何真实密钥
+          required: true

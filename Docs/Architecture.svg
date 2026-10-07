@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 800" width="1240" height="800" role="img" aria-labelledby="t d">
+<title id="t">MindMesh 架构</title>
+<desc id="d">Git 是唯一的同步机制；每个 Agent 只有自己的记忆分区可写；公共区只读，改动走 PR。</desc>
+<defs>
+  <style>
+    .bg{fill:#0b0d12}
+    .card{fill:#12161e;stroke:#242c38;stroke-width:1.2}
+    .cardA{fill:#131b26;stroke:#2f6ea8;stroke-width:1.4}
+    .cardG{fill:#111d18;stroke:#2c6b45;stroke-width:1.4}
+    .cardO{fill:#1d1710;stroke:#7a5a22;stroke-width:1.4}
+    .lbl{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;fill:#e6edf3}
+    .dim{fill:#8b98a5}
+    .dim2{fill:#5c6773}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .ttl{font-size:27px;font-weight:700;letter-spacing:.4px}
+    .sub{font-size:14px}
+    .h{font-size:15px;font-weight:600}
+    .s{font-size:12.5px}
+    .xs{font-size:11.5px}
+    .cap{font-size:11px;letter-spacing:1.3px;fill:#5c6773}
+    .wire{stroke:#3d4b5c;stroke-width:1.6;fill:none}
+    .wireA{stroke:#3f7fd0;stroke-width:1.8;fill:none}
+    .wireG{stroke:#2f8f57;stroke-width:1.8;fill:none}
+    .wireO{stroke:#a5762a;stroke-width:1.8;fill:none;stroke-dasharray:6 5}
+    .deny{stroke:#c0392b;stroke-width:1.6;fill:none;stroke-dasharray:5 4;opacity:.85}
+  </style>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#3f7fd0"/>
+  </marker>
+  <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2f8f57"/>
+  </marker>
+  <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#a5762a"/>
+  </marker>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<rect class="bg" width="1240" height="800"/>
+
+<text class="lbl ttl" x="48" y="60">MindMesh 架构</text>
+<text class="lbl sub dim" x="48" y="88">多个 Agent，同一个心智 —— Git 是唯一的同步机制</text>
+
+<!-- Git remote -->
+<rect class="cardA" x="120" y="132" width="880" height="86" rx="14"/>
+<text class="lbl h" x="560" y="166" text-anchor="middle">Git 远端（GitHub / 自建 Git 服务）</text>
+<text class="lbl s dim" x="560" y="192" text-anchor="middle">唯一同步机制 · 历史 · 回滚 · 权限 · 离线可用 · 零常驻服务</text>
+
+<!-- access arrows: agents <-> remote -->
+<g class="wireA">
+  <line x1="220" y1="280" x2="220" y2="222" marker-start="url(#a)" marker-end="url(#a)"/>
+  <line x1="447" y1="280" x2="447" y2="222" marker-start="url(#a)" marker-end="url(#a)"/>
+  <line x1="673" y1="280" x2="673" y2="222" marker-start="url(#a)" marker-end="url(#a)"/>
+</g>
+<text class="lbl xs dim2" x="232" y="258">pull --rebase / push</text>
+
+<!-- CI dashed to remote -->
+<g class="wireO">
+  <line x1="900" y1="280" x2="900" y2="222" marker-start="url(#ao)" marker-end="url(#ao)"/>
+</g>
+<text class="lbl xs dim2" x="912" y="258">定时审计</text>
+
+<!-- roles -->
+<rect class="card" x="120" y="280" width="200" height="104" rx="12"/>
+<text class="lbl h" x="220" y="318" text-anchor="middle">Agent A</text>
+<text class="lbl xs dim" x="220" y="342" text-anchor="middle">Claude Code</text>
+<text class="lbl xs dim2" x="220" y="362" text-anchor="middle">可写：Memory/A/</text>
+
+<rect class="card" x="347" y="280" width="200" height="104" rx="12"/>
+<text class="lbl h" x="447" y="318" text-anchor="middle">Agent B</text>
+<text class="lbl xs dim" x="447" y="342" text-anchor="middle">Codex</text>
+<text class="lbl xs dim2" x="447" y="362" text-anchor="middle">可写：Memory/B/</text>
+
+<rect class="card" x="573" y="280" width="200" height="104" rx="12"/>
+<text class="lbl h" x="673" y="318" text-anchor="middle">Agent C</text>
+<text class="lbl xs dim" x="673" y="342" text-anchor="middle">Cursor / 自建 Agent</text>
+<text class="lbl xs dim2" x="673" y="362" text-anchor="middle">可写：Memory/C/</text>
+
+<rect class="cardO" x="800" y="280" width="200" height="104" rx="12"/>
+<text class="lbl h" x="900" y="318" text-anchor="middle">维护者 / CI</text>
+<text class="lbl xs dim" x="900" y="342" text-anchor="middle">不必须是某个 Agent</text>
+<text class="lbl xs dim2" x="900" y="362" text-anchor="middle">审计 · 审 PR · 报告</text>
+
+<!-- dashboard -->
+<rect class="card" x="1040" y="280" width="152" height="104" rx="12"/>
+<text class="lbl h" x="1116" y="318" text-anchor="middle" font-size="13.5">只读看板</text>
+<text class="lbl xs dim" x="1116" y="340" text-anchor="middle">Dashboard</text>
+<text class="lbl xs dim2" x="1116" y="360" text-anchor="middle">只看，不写</text>
+<g class="wireO"><line x1="1040" y1="322" x2="1004" y2="200" marker-end="url(#ao)"/></g>
+<text class="lbl xs dim2" x="1082" y="222" text-anchor="middle">只读查询</text>
+
+<!-- memory partition band -->
+<text class="lbl cap" x="48" y="440">单写者分区 · SINGLE-WRITER PARTITION</text>
+
+<rect class="cardG" x="120" y="460" width="200" height="104" rx="12"/>
+<text class="lbl mono s" x="220" y="498" text-anchor="middle">Memory/A/</text>
+<text class="lbl xs dim" x="220" y="522" text-anchor="middle">只有 A 能写</text>
+<text class="lbl xs dim2" x="220" y="542" text-anchor="middle">别人的目录 = 只读</text>
+
+<rect class="cardG" x="347" y="460" width="200" height="104" rx="12"/>
+<text class="lbl mono s" x="447" y="498" text-anchor="middle">Memory/B/</text>
+<text class="lbl xs dim" x="447" y="522" text-anchor="middle">只有 B 能写</text>
+
+<rect class="cardG" x="573" y="460" width="200" height="104" rx="12"/>
+<text class="lbl mono s" x="673" y="498" text-anchor="middle">Memory/C/</text>
+<text class="lbl xs dim" x="673" y="522" text-anchor="middle">只有 C 能写</text>
+
+<g class="wireG">
+  <line x1="220" y1="384" x2="220" y2="460" marker-end="url(#ag)"/>
+  <line x1="447" y1="384" x2="447" y2="460" marker-end="url(#ag)"/>
+  <line x1="673" y1="384" x2="673" y2="460" marker-end="url(#ag)"/>
+</g>
+
+<!-- deny cross-write -->
+<g class="deny">
+  <path d="M347,412 C300,412 260,420 240,458" marker-end="url(#ar)"/>
+</g>
+<text class="lbl xs" x="252" y="404" fill="#c0392b">✕ 不许写别人的</text>
+
+<!-- shared read-only -->
+<rect class="card" x="800" y="460" width="392" height="104" rx="12"/>
+<text class="lbl h" x="996" y="492" text-anchor="middle">只读公共区</text>
+<text class="lbl mono xs dim" x="996" y="516" text-anchor="middle">Skills/   Docs/   顶层文档</text>
+<text class="lbl xs dim2" x="996" y="540" text-anchor="middle">改动 → 分支 + PR → 有人拍板</text>
+<g class="wireO"><line x1="996" y1="384" x2="996" y2="460" marker-end="url(#ao)"/></g>
+
+<!-- legend / principles -->
+<rect class="card" x="48" y="620" width="1144" height="140" rx="14"/>
+<text class="lbl cap" x="76" y="652">四条支柱 · 为什么它能不打架</text>
+<text class="lbl s" x="76" y="684">① Git 是唯一的同步机制 —— 没有数据库、没有服务、没有 MCP；任何会 git pull 的 Agent 都能接入</text>
+<text class="lbl s" x="76" y="712">② 单写者分区 —— 冲突不是「被解决」，而是物理上不可能发生</text>
+<text class="lbl s" x="76" y="740">③ 读前必 pull —— 包括只是想读记忆时；不 pull 的危险不是 push 被拒，而是基于过期内容做判断</text>
+
+<g>
+  <line class="wireG" x1="700" y1="700" x2="740" y2="700" marker-end="url(#ag)"/>
+  <text class="lbl xs dim" x="750" y="704">可写</text>
+  <line class="wireA" x1="800" y1="700" x2="840" y2="700" marker-end="url(#a)"/>
+  <text class="lbl xs dim" x="850" y="704">同步</text>
+  <line class="wireO" x1="900" y1="700" x2="940" y2="700" marker-end="url(#ao)"/>
+  <text class="lbl xs dim" x="950" y="704">只读 / 定时</text>
+  <line class="deny" x1="1060" y1="700" x2="1100" y2="700" marker-end="url(#ar)"/>
+  <text class="lbl xs dim" x="1110" y="704">禁止</text>
+</g>
+<text class="lbl xs dim2" x="76" y="742"></text>
+<text class="lbl s" x="700" y="740" fill="#8b98a5">④ 公共区只读 + PR —— 变更可审、责任可追、历史可读</text>
+</svg>
