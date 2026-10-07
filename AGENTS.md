@@ -82,7 +82,8 @@ git pull --rebase
 MindMesh/
 ├── AGENTS.md / CLAUDE.md     本协议
 ├── SKILL.md                  技能主入口
-├── README.md                 人类可读说明
+├── README.md                 人类可读说明（英文）
+├── README.zh.md              人类可读说明（中文）
 ├── 00StartHere.md            上手流程
 ├── 01Environment.md          本机环境
 ├── 02Identity.md             人格与语气

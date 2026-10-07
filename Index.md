@@ -54,7 +54,8 @@
 | `04RemoteAccess.md` | 远端机器与 SSH |
 | `05Secrets.example.md` | 凭据**字段**清单（真实值不在仓库） |
 | `06World.md` | 设备 / 网络 / 人 |
-| `README.md` | 给**人**看的仓库说明 |
+| `README.md` | 给**人**看的仓库说明（英文） |
+| `README.zh.md` | 给**人**看的仓库说明（中文） |
 | `Docs/` | 设计文档：为什么、架构、部署、看板…… |
 | `Prompts/` | 直接丢给 Agent 的提示词 |
 | `Skills/` | 技能库 |
