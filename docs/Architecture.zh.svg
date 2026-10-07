@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 850" width="1240" height="850" role="img" aria-labelledby="t d">
-<title id="t">MindMesh Architecture</title>
-<desc id="d">Git is the only sync mechanism; each agent can write only its own memory partition; the shared area is read-only and changes go through pull requests.</desc>
+<title id="t">MindMesh 架构</title>
+<desc id="d">Git 是唯一的同步机制；每个 Agent 只有自己的记忆分区可写；公共区只读，改动走 PR。</desc>
 <defs>
   <style>
     .bg{fill:#0b0d12}
@@ -32,12 +32,12 @@
 
 <rect class="bg" width="1240" height="850"/>
 
-<text class="lbl ttl" x="48" y="60">MindMesh Architecture</text>
-<text class="lbl sub dim" x="48" y="88">Many agents, one mind — Git is the only sync mechanism</text>
+<text class="lbl ttl" x="48" y="60">MindMesh 架构</text>
+<text class="lbl sub dim" x="48" y="88">多个 Agent，同一个心智 —— Git 是唯一的同步机制</text>
 
 <rect class="cardA" x="120" y="132" width="880" height="86" rx="14"/>
-<text class="lbl h" x="560" y="166" text-anchor="middle">Git remote (GitHub / self-hosted Git)</text>
-<text class="lbl s dim" x="560" y="192" text-anchor="middle">One sync mechanism · history · rollback · permissions · offline · no daemon</text>
+<text class="lbl h" x="560" y="166" text-anchor="middle">Git 远端（GitHub / 自建 Git 服务）</text>
+<text class="lbl s dim" x="560" y="192" text-anchor="middle">唯一同步机制 · 历史 · 回滚 · 权限 · 离线可用 · 零常驻服务</text>
 
 <g class="wireA">
   <line x1="220" y1="280" x2="220" y2="222" marker-start="url(#a)" marker-end="url(#a)"/>
@@ -47,49 +47,49 @@
 <text class="lbl xs dim2" x="232" y="258">pull --rebase / push</text>
 
 <g class="wireO"><line x1="900" y1="280" x2="900" y2="222" marker-start="url(#ao)" marker-end="url(#ao)"/></g>
-<text class="lbl xs dim2" x="912" y="258">scheduled audit</text>
+<text class="lbl xs dim2" x="912" y="258">定时审计</text>
 
 <rect class="card" x="120" y="280" width="200" height="104" rx="12"/>
 <text class="lbl h" x="220" y="318" text-anchor="middle">Agent A</text>
 <text class="lbl xs dim" x="220" y="342" text-anchor="middle">Claude Code</text>
-<text class="lbl xs dim2" x="220" y="362" text-anchor="middle">writes: Memory/A/</text>
+<text class="lbl xs dim2" x="220" y="362" text-anchor="middle">可写：Memory/A/</text>
 
 <rect class="card" x="347" y="280" width="200" height="104" rx="12"/>
 <text class="lbl h" x="447" y="318" text-anchor="middle">Agent B</text>
 <text class="lbl xs dim" x="447" y="342" text-anchor="middle">Codex</text>
-<text class="lbl xs dim2" x="447" y="362" text-anchor="middle">writes: Memory/B/</text>
+<text class="lbl xs dim2" x="447" y="362" text-anchor="middle">可写：Memory/B/</text>
 
 <rect class="card" x="573" y="280" width="200" height="104" rx="12"/>
 <text class="lbl h" x="673" y="318" text-anchor="middle">Agent C</text>
-<text class="lbl xs dim" x="673" y="342" text-anchor="middle">Cursor / your own agent</text>
-<text class="lbl xs dim2" x="673" y="362" text-anchor="middle">writes: Memory/C/</text>
+<text class="lbl xs dim" x="673" y="342" text-anchor="middle">Cursor / 自建 Agent</text>
+<text class="lbl xs dim2" x="673" y="362" text-anchor="middle">可写：Memory/C/</text>
 
 <rect class="cardO" x="800" y="280" width="200" height="104" rx="12"/>
-<text class="lbl h" x="900" y="318" text-anchor="middle">Maintainer / CI</text>
-<text class="lbl xs dim" x="900" y="342" text-anchor="middle">tied to no single agent</text>
-<text class="lbl xs dim2" x="900" y="362" text-anchor="middle">audit · review PRs · report</text>
+<text class="lbl h" x="900" y="318" text-anchor="middle">维护者 / CI</text>
+<text class="lbl xs dim" x="900" y="342" text-anchor="middle">不必须是某个 Agent</text>
+<text class="lbl xs dim2" x="900" y="362" text-anchor="middle">审计 · 审 PR · 报告</text>
 
 <rect class="card" x="1040" y="280" width="152" height="104" rx="12"/>
-<text class="lbl h" x="1116" y="318" text-anchor="middle" font-size="13.5">Read-only board</text>
+<text class="lbl h" x="1116" y="318" text-anchor="middle" font-size="13.5">只读看板</text>
 <text class="lbl xs dim" x="1116" y="340" text-anchor="middle">Dashboard</text>
-<text class="lbl xs dim2" x="1116" y="360" text-anchor="middle">reads, never writes</text>
+<text class="lbl xs dim2" x="1116" y="360" text-anchor="middle">只看，不写</text>
 <g class="wireO"><line x1="1040" y1="322" x2="1004" y2="200" marker-end="url(#ao)"/></g>
-<text class="lbl xs dim2" x="1082" y="222" text-anchor="middle">read-only queries</text>
+<text class="lbl xs dim2" x="1082" y="222" text-anchor="middle">只读查询</text>
 
-<text class="lbl cap" x="48" y="592">SINGLE-WRITER PARTITION</text>
+<text class="lbl cap" x="48" y="592">单写者分区 · SINGLE-WRITER PARTITION</text>
 
 <rect class="cardG" x="120" y="460" width="200" height="104" rx="12"/>
 <text class="lbl mono s" x="220" y="498" text-anchor="middle">Memory/A/</text>
-<text class="lbl xs dim" x="220" y="522" text-anchor="middle">only A can write</text>
-<text class="lbl xs dim2" x="220" y="542" text-anchor="middle">others: read-only</text>
+<text class="lbl xs dim" x="220" y="522" text-anchor="middle">只有 A 能写</text>
+<text class="lbl xs dim2" x="220" y="542" text-anchor="middle">别人的目录 = 只读</text>
 
 <rect class="cardG" x="347" y="460" width="200" height="104" rx="12"/>
 <text class="lbl mono s" x="447" y="498" text-anchor="middle">Memory/B/</text>
-<text class="lbl xs dim" x="447" y="522" text-anchor="middle">only B can write</text>
+<text class="lbl xs dim" x="447" y="522" text-anchor="middle">只有 B 能写</text>
 
 <rect class="cardG" x="573" y="460" width="200" height="104" rx="12"/>
 <text class="lbl mono s" x="673" y="498" text-anchor="middle">Memory/C/</text>
-<text class="lbl xs dim" x="673" y="522" text-anchor="middle">only C can write</text>
+<text class="lbl xs dim" x="673" y="522" text-anchor="middle">只有 C 能写</text>
 
 <g class="wireG">
   <line x1="220" y1="384" x2="220" y2="460" marker-end="url(#ag)"/>
@@ -98,29 +98,29 @@
 </g>
 
 <g class="deny"><path d="M347,412 C300,412 260,420 240,458" marker-end="url(#ar)"/></g>
-<text class="lbl xs" x="246" y="402" fill="#c0392b">✕ no writing into others'</text>
+<text class="lbl xs" x="246" y="402" fill="#c0392b">✕ 不许写别人的</text>
 
 <rect class="card" x="800" y="460" width="392" height="104" rx="12"/>
-<text class="lbl h" x="996" y="492" text-anchor="middle">Shared read-only area</text>
+<text class="lbl h" x="996" y="492" text-anchor="middle">只读公共区</text>
 <text class="lbl mono xs dim" x="996" y="516" text-anchor="middle">Skills/    docs/    top-level</text>
-<text class="lbl xs dim2" x="996" y="540" text-anchor="middle">changes → branch + PR → a human decides</text>
+<text class="lbl xs dim2" x="996" y="540" text-anchor="middle">改动 → 分支 + PR → 有人拍板</text>
 <g class="wireO"><line x1="996" y1="384" x2="996" y2="460" marker-end="url(#ao)"/></g>
 
 <rect class="card" x="48" y="606" width="1144" height="206" rx="14"/>
-<text class="lbl cap" x="76" y="638">FOUR PILLARS · WHY IT HOLDS TOGETHER</text>
-<text class="lbl s" x="76" y="672">① Git is the only sync mechanism — no database, no service, no MCP; any agent that can git pull can join</text>
-<text class="lbl s" x="76" y="702">② Single-writer partitions — conflicts are not resolved, they are made physically impossible</text>
-<text class="lbl s" x="76" y="732">③ Pull before you read — even just to read memory; the risk is not a rejected push, it is deciding on stale context</text>
-<text class="lbl s" x="76" y="762">④ Shared area is read-only + PR — changes are reviewable, attributable, and in history</text>
+<text class="lbl cap" x="76" y="638">四条支柱 · 为什么它能不打架</text>
+<text class="lbl s" x="76" y="672">① Git 是唯一的同步机制 —— 没有数据库、没有服务、没有 MCP；任何会 git pull 的 Agent 都能接入</text>
+<text class="lbl s" x="76" y="702">② 单写者分区 —— 冲突不是「被解决」，而是物理上不可能发生</text>
+<text class="lbl s" x="76" y="732">③ 读前必 pull —— 包括只是想读记忆时；不 pull 的危险不是 push 被拒，而是基于过期内容做判断</text>
+<text class="lbl s" x="76" y="762">④ 公共区只读 + PR —— 变更可审、责任可追、历史可读</text>
 
 <g>
   <line class="wireG" x1="76" y1="798" x2="118" y2="798" marker-end="url(#ag)"/>
-  <text class="lbl xs dim" x="128" y="802">writable</text>
+  <text class="lbl xs dim" x="128" y="802">可写</text>
   <line class="wireA" x1="340" y1="798" x2="382" y2="798" marker-end="url(#a)"/>
-  <text class="lbl xs dim" x="392" y="802">sync</text>
+  <text class="lbl xs dim" x="392" y="802">同步</text>
   <line class="wireO" x1="620" y1="798" x2="662" y2="798" marker-end="url(#ao)"/>
-  <text class="lbl xs dim" x="672" y="802">read-only / scheduled</text>
+  <text class="lbl xs dim" x="672" y="802">只读 / 定时</text>
   <line class="deny" x1="920" y1="798" x2="962" y2="798" marker-end="url(#ar)"/>
-  <text class="lbl xs dim" x="972" y="802">forbidden</text>
+  <text class="lbl xs dim" x="972" y="802">禁止</text>
 </g>
 </svg>

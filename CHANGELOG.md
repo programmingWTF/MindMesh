@@ -10,6 +10,19 @@
 
 - 待定
 
+## [v0.1.4] — 2026-10-08
+
+### Added
+
+- **架构图分语言**：~~docs/Architecture.svg~~（英文）与 ~~docs/Architecture.zh.svg~~（中文），
+  两份图由同一套几何生成，除文字外完全一致
+- ~~README.zh.md~~ 与 ~~docs/Architecture.md~~ 改引中文版架构图
+
+### Fixed
+
+- 架构图中 ~~SINGLE-WRITER PARTITION~~ 小标题被红色禁止虚线穿过
+- ~~font-family~~ 补齐 Linux 下的 CJK 字体族（~~Noto Sans CJK SC~~ 等），避免在部分环境回退失败
+
 ## [v0.1.3] — 2026-10-08
 
 ### Changed
