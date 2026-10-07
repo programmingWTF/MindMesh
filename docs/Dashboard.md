@@ -37,7 +37,7 @@ python3 server.py
 | `MINDMESH_REV` | `HEAD` | 读取的 revision |
 | `MINDMESH_PORT` | `3310` | 监听端口 |
 | `MINDMESH_HOST` | `127.0.0.1` | 监听地址 |
-| `MINDMESH_PUBLIC_PREFIXES` | `Skills/,Docs/` | **无需鉴权**即可查看的路径前缀 |
+| `MINDMESH_PUBLIC_PREFIXES` | `Skills/,docs/` | **无需鉴权**即可查看的路径前缀 |
 | `MINDMESH_ALLOWED_ORIGINS` | `（空）` | 允许的跨域来源；留空则禁用跨域 |
 | `MINDMESH_SECRET_DIR` | `./secret` | 存放口令摘要与签名密钥（**不入库**） |
 | `MINDMESH_MD_RENDER` | `off` | 是否渲染 Markdown |
@@ -50,7 +50,7 @@ python3 server.py
 
 两级：
 
-1. **公开前缀**（`MINDMESH_PUBLIC_PREFIXES`）——例如 `Skills/`、`Docs/`、`README.md`，任何人可读；
+1. **公开前缀**（`MINDMESH_PUBLIC_PREFIXES`）——例如 `Skills/`、`docs/`、`README.md`，任何人可读；
 2. **其余内容**——需要一个会话 cookie，由**一次性口令**换取。
 
 口令**不以明文存储**：server 只保存它的 sha256 摘要，校验通过后签发一个 HMAC 签名的 cookie。
@@ -85,7 +85,7 @@ chmod 600 Dashboard/secret/*
 
 如果你只是想要「看谁在干活」：
 
-**GitHub 本身就是一个看板。**见 `Docs/ZeroServer.md`——
+**GitHub 本身就是一个看板。**见 `docs/ZeroServer.md`——
 `Commits` / `Contributors` / `Blame` / `Actions` 全都有，一行部署都不需要。
 
 这份看板的价值在于：**自建远端**（没有 Web 界面）或**想要自己的 UI** 时。

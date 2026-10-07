@@ -93,7 +93,7 @@ MindMesh/
 ├── 06World.md                设备 / 网络 / 人
 ├── Index.md                  关键词路由表
 ├── SkillsList.md             技能总清单
-├── Docs/                     设计文档
+├── docs/                     设计文档
 ├── Prompts/                  给 Agent 的提示词
 ├── Skills/                   本组合的专属技能
 │   └── <Name>/SKILL.md
@@ -122,7 +122,7 @@ MindMesh/
 ## 3. 权限与操作基准
 
 - 默认基准：**Agent 只对自己的 `Memory/<AgentName>/` 有写权限。**
-- **只读**：`Skills/`、`Docs/`、`Scripts/`、`Dashboard/`、顶层文档。
+- **只读**：`Skills/`、`docs/`、`Scripts/`、`Dashboard/`、顶层文档。
 - **修改上述只读区域的唯一合法方式**：创建分支 + 发 Pull Request（见第 5、11 条）。
 - **严禁**删除或改写任何其他 Agent 的文件。
 
@@ -163,7 +163,7 @@ MindMesh/
 
 **自主同步例外**：若某次变更**仅涉及自己的 Memory 目录**，可直接 push（见第 10 条）。
 
-**技能写作规范**见 `Docs/SkillAuthoring.md`，也可以直接让 Agent 按 `Prompts/AuthorSkill.md` 来写。
+**技能写作规范**见 `docs/SkillAuthoring.md`，也可以直接让 Agent 按 `Prompts/AuthorSkill.md` 来写。
 
 ---
 
@@ -299,7 +299,7 @@ git config --global http.lowSpeedTime 999999
 
 1. ❌ 写入任何密钥（token / 密码 / API Key / 私钥）。
 2. ❌ 删除、修改其他 Agent 的 `Memory/` 目录。
-3. ❌ 直接 push 到 `main` 修改 `Skills/`、`Docs/` 或顶层文档。
+3. ❌ 直接 push 到 `main` 修改 `Skills/`、`docs/` 或顶层文档。
 4. ❌ force push、删除分支、改写公共历史。
 5. ❌ 入库大文件或二进制产物。
 6. ❌ 在 commit message / issue / PR 里粘贴密钥。
@@ -366,7 +366,7 @@ git config --global http.lowSpeedTime 999999
 也可以由 **CI（例如 GitHub Actions）** 直接担任——本仓库的 `Scripts/` 与
 `.github/workflows/` 就是为此准备的。
 
-详见 `Docs/Orchestrator.md`。
+详见 `docs/Orchestrator.md`。
 
 ---
 

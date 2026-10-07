@@ -1,6 +1,6 @@
 # Prompts / Orchestrate.md — 让某个 Agent 当维护者
 
-> **用法**：先决定由谁来当维护者（它不必是某个特定的 Agent——见 `Docs/Orchestrator.md`），
+> **用法**：先决定由谁来当维护者（它不必是某个特定的 Agent——见 `docs/Orchestrator.md`），
 > 然后把分隔线之间的内容整段复制给它。
 
 ---

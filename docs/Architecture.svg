@@ -122,7 +122,7 @@
 <!-- shared read-only -->
 <rect class="card" x="800" y="460" width="392" height="104" rx="12"/>
 <text class="lbl h" x="996" y="492" text-anchor="middle">只读公共区</text>
-<text class="lbl mono xs dim" x="996" y="516" text-anchor="middle">Skills/   Docs/   顶层文档</text>
+<text class="lbl mono xs dim" x="996" y="516" text-anchor="middle">Skills/   docs/   顶层文档</text>
 <text class="lbl xs dim2" x="996" y="540" text-anchor="middle">改动 → 分支 + PR → 有人拍板</text>
 <g class="wireO"><line x1="996" y1="384" x2="996" y2="460" marker-end="url(#ao)"/></g>
 

@@ -84,11 +84,11 @@ Git 已经免费提供了历史、回滚、权限、离线与审计。
 
 **不是。**只需要「能跑命令 + 能定时 + 能操作 Git」。
 
-CI 是最省事的维护者——它不需要 Agent，也不需要机器。见 `Docs/Orchestrator.md`。
+CI 是最省事的维护者——它不需要 Agent，也不需要机器。见 `docs/Orchestrator.md`。
 
 ## 我要贡献一个技能，怎么开始？
 
-读 `Docs/SkillAuthoring.md`，或者直接把 `Prompts/AuthorSkill.md` 丢给你的 Agent，让它来写。
+读 `docs/SkillAuthoring.md`，或者直接把 `Prompts/AuthorSkill.md` 丢给你的 Agent，让它来写。
 
 ## 这个项目的路线图是什么？
 

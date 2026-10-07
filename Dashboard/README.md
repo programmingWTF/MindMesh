@@ -25,7 +25,7 @@ python3 server.py
 | `MINDMESH_REV` | `HEAD` | 读取的 revision |
 | `MINDMESH_HOST` | `127.0.0.1` | 监听地址 |
 | `MINDMESH_PORT` | `3310` | 监听端口 |
-| `MINDMESH_PUBLIC_PREFIXES` | `Skills/,Docs/` | 无需登录即可查看的前缀 |
+| `MINDMESH_PUBLIC_PREFIXES` | `Skills/,docs/` | 无需登录即可查看的前缀 |
 | `MINDMESH_ALLOWED_ORIGINS` | （空） | 允许的跨域来源；空 = 禁用 |
 | `MINDMESH_SECRET_DIR` | `./secret` | 口令摘要与签名密钥 |
 | `MINDMESH_SESSION_DAYS` | `30` | 会话有效期 |
@@ -90,4 +90,4 @@ git ls-tree    git log    git cat-file    git rev-parse
 | 评审改动 | Pull Request |
 | 定时任务 | Actions |
 
-见 `Docs/ZeroServer.md`。这个自托管看板的价值在于：**私有远端没有 Web 界面**，或者**你想自己控制 UI**。
+见 `docs/ZeroServer.md`。这个自托管看板的价值在于：**私有远端没有 Web 界面**，或者**你想自己控制 UI**。

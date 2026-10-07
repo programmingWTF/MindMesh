@@ -14,7 +14,7 @@
   MINDMESH_REV               读取的 revision（默认 HEAD）
   MINDMESH_HOST              监听地址（默认 127.0.0.1）
   MINDMESH_PORT              监听端口（默认 3310）
-  MINDMESH_PUBLIC_PREFIXES   无需鉴权的前缀，逗号分隔（默认 Skills/,Docs/）
+  MINDMESH_PUBLIC_PREFIXES   无需鉴权的前缀，逗号分隔（默认 Skills/,docs/）
   MINDMESH_ALLOWED_ORIGINS   允许的跨域来源，逗号分隔（默认空 = 禁用跨域）
   MINDMESH_SECRET_DIR        存放口令摘要与签名密钥（默认 ./secret）
   MINDMESH_SESSION_DAYS      会话有效期天数（默认 30）
@@ -49,7 +49,7 @@ def _split_env(name, default):
         return tuple(default)
     return tuple(p.strip() for p in raw.split(",") if p.strip())
 
-PUBLIC_PREFIXES = _split_env("MINDMESH_PUBLIC_PREFIXES", ("Skills/", "Docs/"))
+PUBLIC_PREFIXES = _split_env("MINDMESH_PUBLIC_PREFIXES", ("Skills/", "docs/"))
 ALLOWED_ORIGINS = _split_env("MINDMESH_ALLOWED_ORIGINS", ())
 
 # 永远禁止访问的路径
@@ -245,7 +245,7 @@ class Handler(BaseHTTPRequestHandler):
             except Exception:
                 data = {}
             if not auth_ready():
-                return self._send(503, {"error": "未配置口令（见 Docs/Dashboard.md）"})
+                return self._send(503, {"error": "未配置口令（见 docs/Dashboard.md）"})
             if check_password(str(data.get("password", ""))):
                 tok = issue_token()
                 return self._send(200, {"ok": True}, extra={
@@ -325,7 +325,7 @@ def main():
     if not os.path.isdir(os.path.join(ROOT, ".git")):
         print("⚠️ MINDMESH_ROOT 看起来不是一个 git 仓库: " + ROOT)
     if not auth_ready():
-        print("ℹ️ 未配置口令：仅公开前缀可读。见 Docs/Dashboard.md")
+        print("ℹ️ 未配置口令：仅公开前缀可读。见 docs/Dashboard.md")
     if HOST not in ("127.0.0.1", "localhost", "::1"):
         print("⚠️ 你正在监听非本地地址 " + HOST + " —— 请确认已经配好鉴权与 TLS。")
     print("MindMesh Dashboard → http://" + HOST + ":" + str(PORT) + "  (repo: " + ROOT + ")")

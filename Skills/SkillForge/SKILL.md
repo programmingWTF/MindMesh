@@ -36,7 +36,7 @@ description: <什么时候用它——必须含触发词>
 
 **description 决定它会不会被用到。**把用户可能会说的**原话**写进去。
 
-> 详细写作纪律见 `Docs/SkillAuthoring.md`。
+> 详细写作纪律见 `docs/SkillAuthoring.md`。
 
 ## 安装第三方技能前：安全审查
 

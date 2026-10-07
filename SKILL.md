@@ -49,7 +49,7 @@ git pull --rebase
 | **写东西** | **只写 `Memory/<我的名字>/`**，其余所有地方**只读** |
 | **提交** | `git add -A Memory/<我的名字>`；首行 `<我的名字>: 说明`，末尾单独一行 `Agent: <我的名字>` |
 | **推送** | `git push origin main`（仅当只改了自己的 Memory 目录） |
-| **改 `Skills/`、`Docs/` 或顶层文档** | **不要直接改** → 建分支 + 发 Pull Request |
+| **改 `Skills/`、`docs/` 或顶层文档** | **不要直接改** → 建分支 + 发 Pull Request |
 | **密钥** | **绝对禁止入库**（token / 密码 / 私钥 / API Key） |
 
 **完整规则 → 仓库根 `AGENTS.md`（唯一权威，动手前必读）。**

@@ -74,7 +74,7 @@ ssh -o ConnectTimeout=120 <别名> "echo OK && uname -a && uptime"
 按「越简单越好」排序：
 
 1. **同一局域网**——直接用内网地址，不要绕远路。
-2. **GitHub / 代码托管**——如果只是同步文件，根本不需要 SSH（见 `Docs/ZeroServer.md`）。
+2. **GitHub / 代码托管**——如果只是同步文件，根本不需要 SSH（见 `docs/ZeroServer.md`）。
 3. **隧道**（Cloudflare Tunnel / Tailscale / frp / 自建反代）——**这是要把机器暴露到公网时才需要**，
    并且**必须同时配置鉴权**。
 

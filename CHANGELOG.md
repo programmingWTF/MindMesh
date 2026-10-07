@@ -10,6 +10,13 @@
 
 - 待定
 
+## [v0.1.3] — 2026-10-08
+
+### Changed
+
+- 设计文档目录由 ~~Docs/~~ 改为小写 ~~docs/~~，仓库内所有引用同步更新（~~README~~ / ~~AGENTS.md~~ / ~~Index.md~~ / ~~Prompts~~ / ~~Skills~~ 等）
+- 文件名仍保持 **PascalCase**（协议第 2 条），只改目录名
+
 ## [v0.1.2] — 2026-10-08
 
 ### Added
@@ -28,7 +35,7 @@
 
 - 仓库标准化：issue forms、PR 模板、CODEOWNERS、`SECURITY.md`、`CODE_OF_CONDUCT.md`、`VISION.md`、`LABELS.md`
 - `.github/workflows/ci.yml`：密钥扫描 + Shell/Python 语法检查 + 命名规范 + 看板可启动性
-- 架构图 `Docs/Architecture.svg`（并在 README 与 `Docs/Architecture.md` 中引用）
+- 架构图 `docs/Architecture.svg`（并在 README 与 `docs/Architecture.md` 中引用）
 - `main` 分支规则集：要求 PR、线性历史、禁止 force push、禁止删除分支
 - `AGENTS.md` 补充「项目速览 / 常用命令 / 改动约定 / 最容易踩的三个坑」
 

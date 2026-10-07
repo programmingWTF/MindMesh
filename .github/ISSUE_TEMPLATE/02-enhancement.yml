@@ -54,5 +54,5 @@ body:
     attributes:
       label: 确认
       options:
-        - label: 我已经读过 Docs/Architecture.md 与 Docs/Faq.md
+        - label: 我已经读过 docs/Architecture.md 与 docs/Faq.md
           required: true

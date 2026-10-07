@@ -28,11 +28,11 @@
 | 能力清单、能干什么 | `03Capabilities.md` |
 | 本机装了什么 / 要不要装 | `01Environment.md` |
 | 仓库规则 / 权限 / 提交格式 | `AGENTS.md`（仓库根，**协议**） |
-| 为什么这么设计 | `Docs/Architecture.md`、`Docs/Why.md` |
-| 怎么部署 / 多机 / 多用户 | `Docs/Deployment.md` |
-| 没有服务器怎么办 | `Docs/ZeroServer.md` |
-| 谁来当维护者 / 定时任务 | `Docs/Orchestrator.md` |
-| 看板怎么跑 | `Docs/Dashboard.md` |
+| 为什么这么设计 | `docs/Architecture.md`、`docs/Why.md` |
+| 怎么部署 / 多机 / 多用户 | `docs/Deployment.md` |
+| 没有服务器怎么办 | `docs/ZeroServer.md` |
+| 谁来当维护者 / 定时任务 | `docs/Orchestrator.md` |
+| 看板怎么跑 | `docs/Dashboard.md` |
 | 让 Agent 干活（上线/部署/写技能/当维护者） | `Prompts/` |
 | **其他任何能力** | `SkillsList.md` |
 
@@ -56,7 +56,7 @@
 | `06World.md` | 设备 / 网络 / 人 |
 | `README.md` | 给**人**看的仓库说明（英文） |
 | `README.zh.md` | 给**人**看的仓库说明（中文） |
-| `Docs/` | 设计文档：为什么、架构、部署、看板…… |
+| `docs/` | 设计文档：为什么、架构、部署、看板…… |
 | `Prompts/` | 直接丢给 Agent 的提示词 |
 | `Skills/` | 技能库 |
 | `Memory/<Agent>/` | 各 Agent 的私有记忆（每人只写自己的） |

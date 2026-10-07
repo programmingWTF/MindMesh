@@ -6,7 +6,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 [![Status](https://img.shields.io/badge/status-reference%20architecture-orange.svg)](./VISION.md)
-[![Server](https://img.shields.io/badge/server-not%20required-brightgreen.svg)](./Docs/ZeroServer.md)
+[![Server](https://img.shields.io/badge/server-not%20required-brightgreen.svg)](./docs/ZeroServer.md)
 [![Agents](https://img.shields.io/badge/agents-any%20of%20them-8a2be2.svg)](./AGENTS.md)
 [![Labels](https://img.shields.io/badge/labels-taxonomy-6e7781.svg)](./LABELS.md)
 
@@ -18,7 +18,7 @@ MindMesh 是一个 **Git 仓库**——里面装着你的 AI 搭档的**记忆**
 > 这不是一个插件，不是一个服务，也不是一个一键安装包。
 > **它是一个方案、一套思路、一种架构。**请按你的实际情况改造它。
 
-![MindMesh 架构](Docs/Architecture.svg)
+![MindMesh 架构](docs/Architecture.svg)
 
 ---
 
@@ -56,7 +56,7 @@ MindMesh 用一个很朴素的办法同时解决这三件事：
 
 > **把上下文放进一个 Git 仓库；给每个 Agent 划一块只属于自己的记忆区；剩下的全部只读。**
 
-这句话展开就是整套架构（见 `Docs/Architecture.md`）：
+这句话展开就是整套架构（见 `docs/Architecture.md`）：
 
 1. **Git 是唯一的同步机制。** 没有数据库、没有 API、没有 MCP、没有守护进程。
    只要那个 Agent 会 `git pull`，它就能接入。**所有 Agent 都已经会了。**
@@ -125,8 +125,8 @@ git push
 
 然后它们就共享同一套技能、同一套规则、同一份关于你的知识了。
 
-> 📖 更细的部署方式（含多机、多用户、私有远程、自建 Git 服务）见 `Docs/Deployment.md`。
-> 📖 **完全没有服务器**？见 `Docs/ZeroServer.md`——用 GitHub 当远端，用 GitHub 页面当前端。
+> 📖 更细的部署方式（含多机、多用户、私有远程、自建 Git 服务）见 `docs/Deployment.md`。
+> 📖 **完全没有服务器**？见 `docs/ZeroServer.md`——用 GitHub 当远端，用 GitHub 页面当前端。
 
 ---
 
@@ -148,7 +148,7 @@ MindMesh/
 ├── 04RemoteAccess.md      远端 / SSH / 服务器访问
 ├── 05Secrets.example.md   凭据字段清单（只有字段，没有值）
 ├── 06World.md             你的世界：设备 / 网络 / 人（模板）
-├── Docs/                  为什么、架构、部署、技能设计、统领者、看板
+├── docs/                  为什么、架构、部署、技能设计、统领者、看板
 ├── Prompts/               直接丢给 Agent 的提示词
 ├── Skills/                技能库（写一次，所有 Agent 共用）
 ├── Memory/                各 Agent 的私有记忆（单写者分区）
@@ -210,7 +210,7 @@ MindMesh/
 > ⚠️ 但请记住：**维护者是可替换的执行者，`AGENTS.md` 才是权威。**
 > 如果某个 Agent 既当裁判又当运动员，请把审计与合并权限拆给另一个。
 
-详见 `Docs/Orchestrator.md`。
+详见 `docs/Orchestrator.md`。
 
 ---
 
@@ -228,7 +228,7 @@ MindMesh/
 > 🔒 我们**刻意不提供** Cloudflare 代理、CDN、隧道之类的接入方案。
 > 那是各家自己的绑定，不该混进一个中立方案里。你用什么，是你的选择。
 
-详见 `Docs/Dashboard.md`。
+详见 `docs/Dashboard.md`。
 
 ---
 

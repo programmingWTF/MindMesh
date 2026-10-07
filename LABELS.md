@@ -86,7 +86,7 @@
 | area: skills | `Skills/` 下的技能 |
 | area: scripts | `Scripts/` 治理脚本 |
 | area: dashboard | `Dashboard/` 只读看板 |
-| area: docs | `Docs/` 与 `Prompts/` |
+| area: docs | `docs/` 与 `Prompts/` |
 
 ---
 

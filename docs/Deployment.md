@@ -95,7 +95,7 @@ jobs:
 
 ### 3.3 看板
 
-见 `Docs/Dashboard.md`。
+见 `docs/Dashboard.md`。
 
 ### 3.4 通知
 

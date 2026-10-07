@@ -6,7 +6,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 [![Status](https://img.shields.io/badge/status-reference%20architecture-orange.svg)](./VISION.md)
-[![Server](https://img.shields.io/badge/server-not%20required-brightgreen.svg)](./Docs/ZeroServer.md)
+[![Server](https://img.shields.io/badge/server-not%20required-brightgreen.svg)](./docs/ZeroServer.md)
 [![Agents](https://img.shields.io/badge/agents-any%20of%20them-8a2be2.svg)](./AGENTS.md)
 [![Labels](https://img.shields.io/badge/labels-taxonomy-6e7781.svg)](./LABELS.md)
 
@@ -18,7 +18,7 @@ ends up with **roughly the same capabilities, memory and behaviour** — even wh
 > This is not a plugin, not a service, and not a one-click installer.
 > **It is an approach, a direction, an architecture.** Adapt it to your own reality.
 
-![MindMesh architecture](Docs/Architecture.svg)
+![MindMesh architecture](docs/Architecture.svg)
 
 ---
 
@@ -56,7 +56,7 @@ MindMesh solves all three with one unglamorous move:
 
 > **Put the context in a Git repository. Give every agent a memory area only it can write to. Make everything else read-only.**
 
-Unpacked, that is the entire architecture (see `Docs/Architecture.md`):
+Unpacked, that is the entire architecture (see `docs/Architecture.md`):
 
 1. **Git is the only synchronisation mechanism.** No database, no API, no MCP, no daemon.
    If an agent can run `git pull`, it can join. **Every agent can already do that.**
@@ -126,8 +126,8 @@ git push
 
 Now they share the same skills, the same rules, and the same knowledge about you.
 
-> 📖 More deployment detail (multi-machine, multi-user, private remotes, self-hosted Git) → `Docs/Deployment.md`.
-> 📖 **No server at all?** → `Docs/ZeroServer.md` — use GitHub as the remote and GitHub's own pages as the front end.
+> 📖 More deployment detail (multi-machine, multi-user, private remotes, self-hosted Git) → `docs/Deployment.md`.
+> 📖 **No server at all?** → `docs/ZeroServer.md` — use GitHub as the remote and GitHub's own pages as the front end.
 
 ---
 
@@ -149,7 +149,7 @@ MindMesh/
 ├── 04RemoteAccess.md      Remotes / SSH / servers
 ├── 05Secrets.example.md   Credential field list (names only, no values)
 ├── 06World.md             Your world: devices / network / people (template)
-├── Docs/                  Why, architecture, deployment, authoring, orchestrator, dashboard
+├── docs/                  Why, architecture, deployment, authoring, orchestrator, dashboard
 ├── Prompts/               Prompts to hand to agents
 ├── Skills/                Skill library (write once, every agent uses it)
 ├── Memory/                Private memory per agent (single-writer partitions)
@@ -214,7 +214,7 @@ and it can even be **GitHub Actions** — at which point you don't need an "agen
 > ⚠️ But remember: **the maintainer is a replaceable executor; `AGENTS.md` is the authority.**
 > If one agent is both player and referee, split auditing and merging away from it.
 
-See `Docs/Orchestrator.md`.
+See `docs/Orchestrator.md`.
 
 ---
 
@@ -232,7 +232,7 @@ To publish it, add your own layer in nginx / Caddy — **and configure authentic
 > 🔒 We **deliberately do not ship** Cloudflare-style proxying, CDN or tunnel integrations.
 > Those are vendor-specific bindings and do not belong inside a neutral design. Use whatever you like.
 
-See `Docs/Dashboard.md`.
+See `docs/Dashboard.md`.
 
 ---
 

@@ -94,7 +94,7 @@ jobs:
 ```
 
 - `GITHUB_STEP_SUMMARY` 会把报告渲染在 Actions 页面上；
-- 想让「维护者 Agent」也参与，见 `Docs/Orchestrator.md`。
+- 想让「维护者 Agent」也参与，见 `docs/Orchestrator.md`。
 
 ### 密钥怎么办
 

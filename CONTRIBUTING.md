@@ -21,7 +21,7 @@
 
 ## 贡献一个技能
 
-1. 读 `Docs/SkillAuthoring.md`；
+1. 读 `docs/SkillAuthoring.md`；
 2. 或者直接把 `Prompts/AuthorSkill.md` 丢给你的 Agent，让它来写；
 3. 分支：`add-skill/<名字>`（改已有技能用 `skill/<名字>`）；
 4. 新增 `Skills/<Name>/SKILL.md`，并**另开一个 PR** 更新 `SkillsList.md`；
