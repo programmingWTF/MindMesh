@@ -2,7 +2,7 @@
 
 ## 全貌
 
-![MindMesh 架构](Architecture.zh.svg)
+![MindMesh 架构](Architecture.zh.svg?v=2)
 
 <details>
 <summary>同一张图的纯文本版本（便于 diff 与复制）</summary>

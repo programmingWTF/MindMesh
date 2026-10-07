@@ -18,7 +18,7 @@ ends up with **roughly the same capabilities, memory and behaviour** — even wh
 > This is not a plugin, not a service, and not a one-click installer.
 > **It is an approach, a direction, an architecture.** Adapt it to your own reality.
 
-![MindMesh architecture](docs/Architecture.svg)
+![MindMesh architecture](docs/Architecture.svg?v=2)
 
 ---
 
