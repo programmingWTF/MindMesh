@@ -1,0 +1,37 @@
+# ── 凭据 / 密钥：永不入库 ──────────────────────────────
+Credentials/
+Secrets.md
+*.key
+*.pem
+*.p12
+id_rsa*
+id_ed25519*
+.env
+.env.*
+*.env
+
+# ── 看板的运行时密钥 ───────────────────────────────────
+Dashboard/secret/
+**/secret/
+*.sha256
+hmac.key
+
+# ── 运行时产物 ─────────────────────────────────────────
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.log
+logs/
+
+# ── 依赖 ───────────────────────────────────────────────
+node_modules/
+Library/*/node_modules/
+.venv/
+venv/
+
+# ── 本地覆盖（个人路径 / 别名，不共享） ────────────────
+Local/
+*.local.md

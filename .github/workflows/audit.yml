@@ -1,0 +1,30 @@
+name: audit
+
+on:
+  schedule:
+    - cron: "0 1 * * 1"   # 每周一 01:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0     # 审计需要完整历史（浅克隆会让活跃度统计全变 0）
+
+      - name: 密钥泄漏扫描
+        run: bash Scripts/leakscan.sh
+
+      - name: 治理审计
+        run: bash Scripts/audit.sh | tee audit.md
+
+      - name: 写入报告
+        if: always()
+        run: |
+          echo "## MindMesh Audit" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          cat audit.md >> $GITHUB_STEP_SUMMARY || true

@@ -1,0 +1,13 @@
+MindMesh
+Copyright 2026 programmingWTF
+
+This product includes software developed as part of the MindMesh project.
+
+---
+
+本仓库是一个**参考架构**，不是产品，不提供任何担保。
+
+它**不包含**任何密钥、凭据或个人数据。
+`05Secrets.example.md` 只是凭据的**字段清单**，不含任何真实值。
+
+使用前请阅读 `README.md` 的「边界与免责」一节。
