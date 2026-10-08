@@ -1,5 +1,5 @@
 
-var API_BASE=window.MINDMESH_API||"";
+var API_BASE=(document.querySelector('meta[name="mindmesh-api"]')||{}).content||"";
 var META={
  OpenClaw:{c:"#D9483C",i:"openclaw.png"},
  ClaudeCode:{c:"#D97757",i:"claude.svg"},

@@ -12,7 +12,7 @@
 
   var ST = { authed: false, view: 'overview', tree: {}, sel: '' };
 
-  var API_BASE = E.MINDMESH_API || '';
+  var API_BASE = E.API_BASE;
   function api(path, opts) {
     return fetch(API_BASE + path, Object.assign({ credentials: 'include', headers: { 'Accept': 'application/json' } }, opts || {}))
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, ok: r.ok, data: j }; }); });

@@ -77,7 +77,7 @@ chmod 600 secret/*
 ## 部署形态
 
 - **最简**：`python3 server.py`，浏览器直接访问，或用 nginx / caddy 反代
-- **前后端分离**：静态文件走 CDN / nginx，API 域名通过前端 `window.MINDMESH_API` 指定（在 index.html 里 `<script>window.MINDMESH_API='https://api.example.com';</script>` 即可），服务端配 `MINDMESH_ALLOWED_ORIGINS` 允许跨域
+- **前后端分离**：静态文件走 CDN / nginx，API 域名通过 index.html 里的 `<meta name="mindmesh-api" content="https://api.example.com">` 指定（不配则默认同源），服务端配 `MINDMESH_ALLOWED_ORIGINS` 允许跨域
 - **systemd**：参考
 
 ```ini
