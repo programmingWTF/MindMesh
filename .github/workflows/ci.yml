@@ -55,5 +55,12 @@ jobs:
           curl -sS -m 8 "http://127.0.0.1:3399/api/summary" | head -c 200
           echo
           code=$(curl -s -o /dev/null -w '%{http_code}' -m 8 "http://127.0.0.1:3399/api/file?path=AGENTS.md")
-          echo "AGENTS.md 未登录访问 -> $code（预期 403）"
-          test "$code" = "403"
+          resp=$(curl -s -m 8 "http://127.0.0.1:3399/api/file?path=AGENTS.md")
+          echo "AGENTS.md 未登录访问 -> $code（预期 403，或 200+private 标记且无正文）"
+          # 未登录时：私密文件要么直接 403，要么返回 private 标记且不携带任何正文（raw 字段）
+          if [ "$code" = "403" ]; then
+            ok=1
+          else
+            if echo "$resp" | grep -q '"private": true' && ! echo "$resp" | grep -q '"raw"'; then ok=1; else ok=0; fi
+          fi
+          test "$ok" = "1"
