@@ -1,203 +1,190 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MindMesh Dashboard</title>
+<title>MindMesh · Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="/icons/favicon.svg?v=7">
+<meta name="theme-color" content="#0a0c10">
+<meta name="description" content="MindMesh Dashboard - 可视化你的 Agent 记忆仓库活动与协作历史">
 <style>
-:root{--bg:#0b0d12;--card:rgba(255,255,255,.04);--line:rgba(255,255,255,.09);
---fg:#e6edf3;--dim:#8b98a5;--dim2:#5c6773;--acc:#5b9dff;--ok:#3fb950;--warn:#d29922;--bad:#f85149}
+:root{--bg:#0a0c10;--card:rgba(255,255,255,.035);--card2:rgba(255,255,255,.06);
+--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);
+--fg:#e6edf3;--dim:#8b98a5;--dim2:#5c6773;--accent:#ff7a45;--ok:#3fb950;--warn:#d29922;--bad:#f85149;}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
-body{min-height:100vh;background:
- radial-gradient(1100px 520px at 12% -10%,rgba(91,157,255,.10),transparent 60%),var(--bg)}
-.wrap{max-width:1240px;margin:0 auto;padding:26px 20px 70px}
-h1{margin:0;font-size:22px;letter-spacing:.4px}
-h1 span{color:var(--acc)}
-.sub{color:var(--dim);font-size:12.5px;margin-top:6px}
-.row{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;min-width:100px}
-.stat .k{font-size:11px;color:var(--dim2);text-transform:uppercase;letter-spacing:.7px}
-.stat .v{font-size:16px;font-weight:600;margin-top:3px}
-h2{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim2);
-margin:30px 0 12px;font-weight:600}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
-.card .name{font-weight:600;font-size:15px}
-.card .meta{color:var(--dim);font-size:12px;margin-top:7px;line-height:1.7}
-.bar{height:4px;border-radius:3px;background:rgba(255,255,255,.07);margin-top:10px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--acc)}
-li{list-style:none}
-ul{margin:0;padding:0}
-.cm{display:flex;gap:10px;padding:7px 10px;border-radius:9px;font-size:13px;align-items:baseline}
-.cm:hover{background:var(--card)}
-.cm .sha{color:var(--dim2);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
-.cm .date{color:var(--dim2);font-size:12px;min-width:80px}
-.cm .agent{color:var(--acc);font-weight:600;font-size:12.5px}
-.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 9px;
-font-size:11px;color:var(--dim)}
-.tag.pub{color:var(--ok);border-color:rgba(63,185,80,.4)}
-.tag.priv{color:var(--warn);border-color:rgba(210,153,34,.4)}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:12px}
-input,button{font:inherit}
-input[type=text],input[type=password]{background:rgba(255,255,255,.05);border:1px solid var(--line);
-border-radius:9px;padding:8px 11px;color:var(--fg);outline:none;font-size:13px}
-input:focus{border-color:rgba(91,157,255,.7)}
-button{background:rgba(91,157,255,.16);border:1px solid rgba(91,157,255,.5);color:#cfe1ff;
-border-radius:9px;padding:8px 14px;cursor:pointer;font-size:13px}
-button:hover{background:rgba(91,157,255,.24)}
-.tree{max-height:420px;overflow:auto;font-size:12.5px;margin-top:10px}
-.tree .f{display:flex;gap:9px;align-items:center;padding:4px 8px;border-radius:7px;cursor:pointer}
-.tree .f:hover{background:rgba(255,255,255,.05)}
-.tree .p{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--dim)}
-pre{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:10px;
-padding:13px;overflow:auto;max-height:520px;font-size:12.5px;line-height:1.6}
-.muted{color:var(--dim2);font-size:12.5px}
-.err{color:var(--bad)}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <h1>MindMesh <span>Dashboard</span></h1>
-  <div class="sub" id="repo">加载中…</div>
-  <div class="row" id="stats"></div>
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;}
+body{min-height:100vh;background:radial-gradient(1200px 600px at 15% -10%,rgba(255,122,69,.10),transparent 60%),radial-gradient(900px 500px at 90% 0%,rgba(88,166,255,.08),transparent 55%),var(--bg);}
+.wrap{max-width:1400px;margin:0 auto;padding:28px 22px 70px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px;justify-content:space-between;margin-bottom:20px}
+h1{margin:0;font-size:26px;letter-spacing:.5px;font-weight:700}
+.sub{color:var(--dim);font-size:13px;margin-top:6px}
+.statrow{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;min-width:96px}
+.stat .k{font-size:11px;color:var(--dim2);text-transform:uppercase;letter-spacing:.8px}
+.stat .v{font-size:17px;font-weight:600;margin-top:3px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.pill{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 13px;font-size:12.5px;color:var(--dim);display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--dim2);box-shadow:0 0 8px currentColor}
+.dot.ok{background:var(--ok);color:var(--ok)}.dot.warn{background:var(--warn);color:var(--warn)}.dot.bad{background:var(--bad);color:var(--bad)}
+/* toolbar */
+.tb{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+background:rgba(10,12,16,.82);backdrop-filter:blur(14px);border:1px solid var(--line);
+border-radius:14px;padding:11px 13px;margin-bottom:22px}
+.tb input[type=text]{flex:1 1 240px;min-width:180px;background:rgba(255,255,255,.045);border:1px solid var(--line);
+border-radius:10px;padding:9px 12px;color:var(--fg);font-size:13.5px;outline:none;transition:.16s}
+.tb input[type=text]:focus{border-color:rgba(255,122,69,.65);background:rgba(255,122,69,.07)}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--dim);border-radius:999px;
+padding:6px 13px;font-size:12.5px;cursor:pointer;transition:.16s;white-space:nowrap;user-select:none}
+.chip:hover{border-color:var(--line2);color:var(--fg)}
+.chip.on{background:rgba(255,122,69,.16);border-color:rgba(255,122,69,.6);color:#ffb08a}
+.tgl{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--dim);cursor:pointer;user-select:none}
+.tgl input{accent-color:#ff7a45}
+.cnt{margin-left:auto;font-size:12.5px;color:var(--dim2);white-space:nowrap}
+h2{font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim2);margin:32px 0 13px;font-weight:600}
+h2 .hint{text-transform:none;letter-spacing:0;color:var(--dim2);font-weight:400;font-size:11.5px;margin-left:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:13px}
+.agent{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;
+overflow:hidden;transition:.2s;cursor:pointer}
+.agent:hover{transform:translateY(-3px);border-color:var(--line2);background:var(--card2)}
+.agent.sel{border-color:rgba(255,122,69,.75);background:rgba(255,122,69,.09);box-shadow:0 0 0 1px rgba(255,122,69,.35) inset}
+.agent.dim{opacity:.34}
+.glow{position:absolute;top:-40px;right:-40px;width:150px;height:150px;border-radius:50%;filter:blur(48px);opacity:.28;pointer-events:none}
+.top{display:flex;align-items:center;gap:11px}
+.av{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:14px;color:#0a0c10;flex:0 0 auto}
+.ic{width:21px;height:21px;background:currentColor;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;display:block}
+.nm{font-weight:650;font-size:14.5px}
+.meta{color:var(--dim2);font-size:11.5px;margin-top:2px}
+.nums{display:flex;gap:15px;margin-top:12px}
+.num .v{font-size:18px;font-weight:680;line-height:1.1}
+.num .k{font-size:10px;color:var(--dim2);text-transform:uppercase;letter-spacing:.7px;margin-top:2px}
+.spark{margin-top:10px;height:28px;display:block;width:100%}
+.cols{display:grid;grid-template-columns:1.3fr .9fr;gap:18px;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 0;max-height:660px;overflow:auto}
+.cmt{padding:10px 15px;border-bottom:1px solid rgba(255,255,255,.045);cursor:pointer}
+.cmt:last-child{border-bottom:0}
+.cmt:hover{background:rgba(255,255,255,.03)}
+.cmt .row1{display:flex;gap:11px;align-items:flex-start}
+.badge{flex:0 0 auto;border-radius:8px;padding:3px 8px;font-size:11px;font-weight:650;color:#0a0c10;white-space:nowrap}
+.bd{flex:1;min-width:0}
+.msg{font-size:13.5px;word-break:break-word}
+.det{color:var(--dim2);font-size:11.5px;margin-top:3px;display:flex;gap:10px;flex-wrap:wrap}
+.f{color:var(--dim);font-size:12.5px;word-break:break-all}
+.fil{padding:8px 15px 12px 15px;border-top:1px dashed rgba(255,255,255,.07);margin-top:8px}
+.fil div{font-size:12px;color:var(--dim);word-break:break-all;line-height:1.75}
+.hm{display:flex;align-items:center;gap:10px;padding:7px 15px;cursor:pointer}
+.hm:hover{background:rgba(255,255,255,.03)}
+.bar{height:7px;border-radius:4px;background:linear-gradient(90deg,#ff7a45,#ffb37a);min-width:3px;flex:0 0 auto;transition:.2s}
+.hm .n{flex:1;min-width:0}
+.hm .c{color:var(--dim2);font-size:11.5px}
+/* daily chart */
+.chartcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px 12px}
+.charthead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px;flex-wrap:wrap}
+.charttitle{font-size:13.5px;color:var(--dim)}
+.charttitle b{font-size:16px;color:var(--fg);margin-left:8px;font-variant-numeric:tabular-nums}
+.seg{display:flex;background:rgba(255,255,255,.06);border-radius:999px;padding:3px;gap:2px}
+.seg span{padding:5px 14px;border-radius:999px;font-size:12.5px;color:var(--dim);cursor:pointer;transition:.15s;white-space:nowrap;user-select:none}
+.seg span:hover{color:var(--fg)}
+.seg span.on{background:#000;color:var(--fg)}
+.cwrap{position:relative;padding:0 0 24px 34px}
+.yax{position:absolute;left:0;top:0;bottom:24px;width:28px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;font-size:10.5px;color:var(--dim2);line-height:1}
+.gridlines{position:absolute;left:34px;right:0;top:0;bottom:24px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+.gridlines i{height:1px;background:rgba(255,255,255,.07);display:block}
+.plot{position:relative;height:132px;display:flex;align-items:flex-end;gap:4px}
+.bcol{flex:1;height:100%;display:flex;flex-direction:column-reverse;cursor:pointer;border-radius:4px 4px 0 0}
+.bcol:hover{background:rgba(255,255,255,.045)}
+.bseg{width:100%;transition:filter .15s}
+.bcol .bseg:last-child{border-radius:3px 3px 0 0}
+.bcol:hover .bseg{filter:brightness(1.3)}
+.xax{position:absolute;left:34px;right:0;bottom:0;height:18px;font-size:10.5px;color:var(--dim2)}
+.xax span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.curline{position:absolute;top:0;bottom:24px;width:0;border-left:1px dashed rgba(255,255,255,.32);display:none;pointer-events:none}
+.charttip{position:absolute;display:none;background:rgba(16,18,24,.97);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:11px 13px;font-size:12.5px;min-width:196px;pointer-events:none;box-shadow:0 14px 36px rgba(0,0,0,.6);z-index:30}
+.charttip .th{display:flex;justify-content:space-between;gap:18px;font-weight:600;font-size:13px;margin-bottom:9px}
+.charttip .tv{font-variant-numeric:tabular-nums}
+.charttip .tr{display:flex;align-items:center;gap:8px;margin-top:5px;color:var(--dim)}
+.charttip .tr .sq{width:9px;height:9px;border-radius:2px;flex:0 0 auto}
+.charttip .tr .lb{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px}
+.charttip .tr .vl{color:var(--fg);font-variant-numeric:tabular-nums}
+footer{margin-top:48px;color:var(--dim2);font-size:12px;text-align:center;line-height:1.9}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.empty{padding:24px 16px;color:var(--dim2);font-size:13px;text-align:center}
+/* scrollbar */
+html{scrollbar-width:thin;scrollbar-color:rgba(255,122,69,.50) rgba(255,255,255,.03)}
+.panel,.tb{scrollbar-width:thin;scrollbar-color:rgba(255,122,69,.50) rgba(255,255,255,.03)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:rgba(255,255,255,.025);border-radius:10px}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(255,122,69,.60),rgba(255,122,69,.28));
+border-radius:10px;border:2px solid transparent;background-clip:padding-box;min-height:36px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,rgba(255,122,69,.95),rgba(255,122,69,.55));background-clip:padding-box}
+::-webkit-scrollbar-thumb:active{background:linear-gradient(180deg,#ff7a45,#e2562a);background-clip:padding-box}
+::-webkit-scrollbar-corner{background:transparent}
+</style><link rel="stylesheet" href="/static/extra.css?v=9"></head><body data-view="overview"><div class="wrap">
+<header>
+  <div><h1>🧠 MindMesh</h1>
+  <div class="sub">Agent Activity · Agent 记忆仓库活动看板 <span id="gen"></span></div></div>
+  <div class="statrow" id="stats"></div>
+</header>
+<div class="nav" id="nav">
+  <span class="nv on" data-view="overview">概览</span>
+  <span class="nv" data-view="files">文件浏览</span>
+  <span class="nv" data-view="commits">提交改动</span>
+  <span class="sp2"></span>
+  <span class="chip" id="authbtn">🔒 解锁记忆</span>
+</div>
+<div class="pills" id="pills"></div>
 
-  <div class="panel" id="auth" style="display:none">
-    <div class="muted">仓库的私有区域需要口令。口令摘要存在 <code>Dashboard/secret/</code>，明文不入库。</div>
-    <div class="row" style="margin-bottom:0">
-      <input type="password" id="pw" placeholder="访问口令" style="flex:1 1 200px">
-      <button onclick="login()">登录</button>
-      <button onclick="logout()" style="background:var(--card);border-color:var(--line);color:var(--dim)">登出</button>
-    </div>
-  </div>
-
-  <h2>Agents</h2>
-  <div class="grid" id="agents"></div>
-
-  <h2>近期提交</h2>
-  <div id="commits"><div class="muted">加载中…</div></div>
-
-  <h2>文件</h2>
-  <div class="panel">
-    <input type="text" id="filter" placeholder="过滤路径…" oninput="renderTree()" style="width:100%">
-    <div class="muted" style="margin-top:8px" id="treeinfo"></div>
-    <div class="tree" id="tree"></div>
-  </div>
-
-  <div class="panel" id="viewer" style="display:none">
-    <div class="row" style="margin-top:0">
-      <strong id="vpath" style="font-size:13px;font-weight:600"></strong>
-      <span style="flex:1"></span>
-      <button onclick="closeViewer()" style="background:var(--card);border-color:var(--line);color:var(--dim)">关闭</button>
-    </div>
-    <pre id="vtext"></pre>
-  </div>
-
-  <div class="muted" style="margin-top:26px">
-    只读看板 · 不写入仓库 · 数据来自 <code>git ls-tree / git log / git cat-file</code>
-  </div>
+<div class="tb">
+  <input type="text" id="q" placeholder="搜索提交信息 / 文件路径 / hash…  （按 / 聚焦）">
+  <span class="chip on" data-range="all">全部</span>
+  <span class="chip" data-range="24h">24 小时</span>
+  <span class="chip" data-range="7d">7 天</span>
+  <span class="chip" data-range="30d">30 天</span>
+  <label class="tgl"><input type="checkbox" id="hideidle"> 隐藏待接入</label>
+  <span class="cnt" id="cnt"></span>
+  <span class="chip" id="reset">重置</span>
 </div>
 
-<script>
-var TREE = [];
-var ME = {authed:false, authRequired:false};
-
-function fmtBytes(n){
-  if(n==null) return "—";
-  if(n<1024) return n+" B";
-  if(n<1048576) return (n/1024).toFixed(1)+" KB";
-  return (n/1048576).toFixed(1)+" MB";
-}
-function esc(s){
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-}
-function api(path, opts){
-  return fetch(path, opts).then(function(r){
-    return r.json().then(function(j){
-      if(!r.ok) throw new Error(j.error || ("HTTP "+r.status));
-      return j;
-    });
-  });
-}
-
-function load(){
-  api("/api/me").then(function(m){
-    ME = m;
-    document.getElementById("auth").style.display = (m.authRequired && !m.authed) ? "block" : "none";
-  }).catch(function(){});
-
-  api("/api/summary").then(function(s){
-    document.getElementById("repo").textContent =
-      s.root + " · " + s.branch + " @ " + s.head + " · " + s.fileCount + " 个受管文件 · " + fmtBytes(s.totalBytes);
-    var st = [["Agents", s.agents.length], ["提交(近200)", s.recentCommits.length],
-              ["文件", s.fileCount], ["体积", fmtBytes(s.totalBytes)]];
-    document.getElementById("stats").innerHTML = st.map(function(x){
-      return '<div class="stat"><div class="k">'+esc(x[0])+'</div><div class="v">'+esc(x[1])+'</div></div>';
-    }).join("");
-
-    var maxb = 1;
-    s.agents.forEach(function(a){ if(a.bytes>maxb) maxb=a.bytes; });
-    document.getElementById("agents").innerHTML = s.agents.length ? s.agents.map(function(a){
-      var pct = Math.round(100*a.bytes/maxb);
-      return '<div class="card"><div class="name">'+esc(a.name)+'</div>'+
-        '<div class="meta">'+a.files+' 个文件 · '+fmtBytes(a.bytes)+'<br>'+
-        a.commits+' 次提交 · 最近 '+(a.last||"—")+'</div>'+
-        '<div class="bar"><i style="width:'+pct+'%"></i></div></div>';
-    }).join("") : '<div class="muted">还没有任何 Memory/&lt;Agent&gt;/ 目录</div>';
-
-    document.getElementById("commits").innerHTML = s.recentCommits.length ?
-      '<ul>'+s.recentCommits.map(function(c){
-        return '<li class="cm"><span class="sha">'+esc(c.sha)+'</span>'+
-               '<span class="date">'+esc(c.date)+'</span>'+
-               '<span class="agent">'+esc(c.agent||"—")+'</span>'+
-               '<span>'+esc(c.subject)+'</span></li>';
-      }).join("")+'</ul>' : '<div class="muted">暂无提交</div>';
-  }).catch(function(e){
-    document.getElementById("repo").innerHTML = '<span class="err">'+esc(e.message)+'</span>';
-  });
-
-  api("/api/tree").then(function(t){
-    TREE = t.files;
-    document.getElementById("treeinfo").textContent =
-      t.files.length + " 个文件" + (t.truncated ? "（已截断）" : "");
-    renderTree();
-  }).catch(function(){});
-}
-
-function renderTree(){
-  var q = document.getElementById("filter").value.toLowerCase();
-  var rows = TREE.filter(function(f){ return f.path.toLowerCase().indexOf(q)>=0; }).slice(0, 400);
-  document.getElementById("tree").innerHTML = rows.map(function(f){
-    return '<div class="f" onclick="open_(\''+f.path.replace(/'/g,"")+'\')">'+
-      '<span class="tag '+(f.public?'pub':'priv')+'">'+(f.public?'公开':'私有')+'</span>'+
-      '<span class="p">'+esc(f.path)+'</span>'+
-      '<span style="flex:1"></span><span class="muted">'+fmtBytes(f.size)+'</span></div>';
-  }).join("") || '<div class="muted">没有匹配的文件</div>';
-}
-
-function open_(p){
-  api("/api/file?path="+encodeURIComponent(p)).then(function(f){
-    document.getElementById("viewer").style.display = "block";
-    document.getElementById("vpath").textContent = f.path;
-    document.getElementById("vtext").textContent = f.text;
-    document.getElementById("viewer").scrollIntoView({behavior:"smooth"});
-  }).catch(function(e){ alert(e.message); });
-}
-function closeViewer(){ document.getElementById("viewer").style.display = "none"; }
-
-function login(){
-  var pw = document.getElementById("pw").value;
-  api("/api/login", {method:"POST", headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({password: pw})})
-    .then(function(){ location.reload(); })
-    .catch(function(e){ alert(e.message); });
-}
-function logout(){
-  api("/api/logout", {method:"POST"}).then(function(){ location.reload(); });
-}
-
-load();
-</script>
-</body>
-</html>
+<div id="selbar"></div>
+<h2>Agents <span class="hint" id="aghint">点击卡片可筛选</span></h2>
+<div class="grid" id="agents"></div>
+<h2>近 30 天活动</h2>
+<div class="chartcard">
+  <div class="charthead">
+    <div class="charttitle">提交次数（近 30 天）<b id="chartTotal">0</b></div>
+    <div class="seg" id="chartSeg"><span data-m="agent" class="on">按 Agent</span><span data-m="cat">按目录</span></div>
+  </div>
+  <div class="cwrap" id="cwrap">
+    <div class="yax" id="yax"></div>
+    <div class="gridlines" id="gridlines"></div>
+    <div class="plot" id="plot"></div>
+    <div class="xax" id="xax"></div>
+    <div class="curline" id="curline"></div>
+    <div class="charttip" id="chartTip"></div>
+  </div>
+</div>
+<div class="cols">
+  <div><h2>Commits <span class="hint" id="cmhint"></span></h2><div class="panel" id="commits"></div></div>
+  <div><h2>Hot Files <span class="hint">（随筛选变化）</span></h2><div class="panel" id="hot"></div></div>
+</div>
+<section id="view-files" class="hidden">
+  <div class="fsplit">
+    <div class="ftree" id="ftree">
+      <input type="text" id="fsearch" placeholder="🔍 搜索文件路径…" autocomplete="off">
+      <div id="fresults" class="hidden"></div>
+    </div>
+    <div class="fview" id="fview"><div class="lockbox">从左侧选择文件查看</div></div>
+  </div>
+</section>
+<section id="view-commits" class="hidden">
+  <h2>提交改动 <span class="hint">点击任意提交，查看这一轮每个文件改了什么</span></h2>
+  <div id="vcommits"></div>
+</section>
+<div id="modals"></div>
+<footer>
+  MindMesh Dashboard · 数据源 = 仓库 git 历史 · 每 30 秒自动刷新<br>
+  <a href="https://github.com/programmingWTF/MindMesh" target="_blank" rel="noopener">MindMesh on GitHub</a>
+</footer>
+</div><script src="/static/main.js?v=10"></script>
+<script src="/static/extra.js?v=12"></script></body></html>

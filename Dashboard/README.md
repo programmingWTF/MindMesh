@@ -1,6 +1,18 @@
-# Dashboard
+# MindMesh Dashboard
 
 一个**只读**的活动看板：把每个 Agent 的提交与记忆改动可视化，并能在浏览器里浏览仓库文件。
+纯 Python 标准库，零依赖，单文件部署。
+
+---
+
+## 功能
+
+- **概览**：Agent 卡片（commits / files / 近 30 天 sparkline）、30 天活动堆叠柱图（按 Agent / 按目录）、热门文件
+- **文件浏览**：懒加载目录树、Markdown 渲染 / 源码双模式、二进制预览、**递归文件搜索**、打开文件时目录树自动展开定位 + 高亮标记
+- **提交改动**：逐提交 diff 视图（分页加载），从概览任意文件名 / hash 一键跳转
+- **hash 路由**：`#/`（概览）、`#/files`、`#/commits`，浏览器前进 / 后退可用，URL 即状态
+- **私密区**：`MINDMESH_PUBLIC_PREFIXES` / `MINDMESH_PUBLIC_FILES` 之外的内容需要口令解锁（session cookie，180 天可选）
+- **健康面板**：workspace 文件与仓库副本的同步状态、最新维护报告（可选，配 `MINDMESH_WS` 启用）
 
 ---
 
@@ -19,16 +31,29 @@ python3 server.py
 
 ## 配置
 
+全部通过环境变量，源码里没有任何硬编码路径 / 域名：
+
 | 环境变量 | 默认 | 说明 |
 |---|---|---|
-| `MINDMESH_ROOT` | 上级目录 | 仓库路径（**不要在源码里硬编码**） |
-| `MINDMESH_REV` | `HEAD` | 读取的 revision |
+| `MINDMESH_ROOT` | 上级目录 | 仓库工作副本路径 |
+| `MINDMESH_BARE` | （空） | 裸仓库路径（存在则优先，零延迟） |
+| `MINDMESH_REV` | `origin/main` | 工作副本读取的 revision |
+| `MINDMESH_BARE_REV` | `refs/heads/main` | 裸仓库读取的 revision |
 | `MINDMESH_HOST` | `127.0.0.1` | 监听地址 |
 | `MINDMESH_PORT` | `3310` | 监听端口 |
-| `MINDMESH_PUBLIC_PREFIXES` | `Skills/,docs/` | 无需登录即可查看的前缀 |
-| `MINDMESH_ALLOWED_ORIGINS` | （空） | 允许的跨域来源；空 = 禁用 |
-| `MINDMESH_SECRET_DIR` | `./secret` | 口令摘要与签名密钥 |
+| `MINDMESH_PUBLIC_PREFIXES` | `Skills/,docs/` | 无需登录即可查看的目录前缀 |
+| `MINDMESH_PUBLIC_FILES` | `README.md,…` | 无需登录即可查看的根文件 |
+| `MINDMESH_ALLOWED_ORIGINS` | （空） | 允许的跨域来源；空 = 禁用（同源部署不需要） |
+| `MINDMESH_SECRET_DIR` | `./secret` | 口令摘要与签名密钥目录 |
 | `MINDMESH_SESSION_DAYS` | `30` | 会话有效期 |
+| `MINDMESH_COOKIE` | `mindmesh_session` | 会话 cookie 名 |
+| `MINDMESH_EXTRA_PWD` | （空） | 可选的第二份口令摘要文件路径 |
+| `MINDMESH_AGENTS` | （空） | 概览预置的 Agent 名单；空 = 从提交历史自动发现 |
+| `MINDMESH_AUTHOR_AGENT` | （空） | git 作者名兜底归因，格式 `作者名=AgentName,...` |
+| `MINDMESH_WS` | （空） | workspace 目录（启用健康面板） |
+| `MINDMESH_LINKS` | （空） | 健康面板检查的文件名列表（需配 `MINDMESH_WS`） |
+| `MINDMESH_LINKS_REPO_DIR` | （空） | 这些文件在仓库内的对应目录 |
+| `MINDMESH_MAINT_DIR` | （空） | 维护报告目录（相对仓库根） |
 
 ---
 
@@ -45,7 +70,24 @@ chmod 600 secret/*
 
 > ⚠️ `Dashboard/secret/` **必须**在 `.gitignore` 里（本仓库已配好）。提交它等于把看板送给所有人。
 
-**没有配置口令时**：只有 `MINDMESH_PUBLIC_PREFIXES` 里的内容可读，其余一律 403。这是一个安全的默认值。
+**没有配置口令时**：只有 `MINDMESH_PUBLIC_PREFIXES` / `MINDMESH_PUBLIC_FILES` 里的内容可读，其余一律 403。这是一个安全的默认值。
+
+---
+
+## 部署形态
+
+- **最简**：`python3 server.py`，浏览器直接访问，或用 nginx / caddy 反代
+- **前后端分离**：静态文件走 CDN / nginx，API 域名通过前端 `window.MINDMESH_API` 指定（在 index.html 里 `<script>window.MINDMESH_API='https://api.example.com';</script>` 即可），服务端配 `MINDMESH_ALLOWED_ORIGINS` 允许跨域
+- **systemd**：参考
+
+```ini
+[Service]
+WorkingDirectory=/opt/mindmesh/Dashboard
+Environment=MINDMESH_ROOT=/srv/mindmesh
+Environment=MINDMESH_HOST=0.0.0.0
+ExecStart=/usr/bin/python3 /opt/mindmesh/Dashboard/server.py
+Restart=always
+```
 
 ---
 
@@ -54,40 +96,17 @@ chmod 600 secret/*
 本服务**只**调用这些 git 子命令：
 
 ```text
-git ls-tree    git log    git cat-file    git rev-parse
+git ls-tree    git log    git cat-file    git rev-parse    git fetch
 ```
 
-没有任何 `commit` / `checkout` / `reset` / `clean`。
-**看板弄坏仓库是不可接受的**，所以这条约束是硬性的。
+没有任何 `commit` / `checkout` / `reset` / `clean`。`fetch` 仅用于让工作副本的 `origin/main` 保持新鲜（裸仓库模式不 fetch）。
 
 ---
 
-## 对外发布
+## 字体
 
-本仓库**刻意不提供**任何 CDN / 隧道 / 代理厂商的接入方案——那是各家自己的绑定，不该混进中立方案。
+`static/` 内的 Monaspace Radon 字体基于 [SIL Open Font License 1.1](https://openfontlicense.org/) 授权，见 [FONT-LICENSE.md](./static/FONT-LICENSE.md)。
 
-无论你用什么方式暴露它，请先满足：
+## License
 
-- [ ] TLS
-- [ ] **先鉴权，再暴露**
-- [ ] 看板进程**没有**仓库的写权限
-- [ ] 用独立的、低权限的运行用户
-- [ ] 限制请求体大小与超时
-- [ ] `MINDMESH_ALLOWED_ORIGINS` 只填你真正的来源，不要用 `*`
-
----
-
-## 你可能根本不需要它
-
-如果你用 GitHub 当远端，**GitHub 本身就是一个看板**：
-
-| 你想要的 | GitHub 自带 |
-|---|---|
-| 谁改了什么 | Commits |
-| 某个 Agent 的活跃度 | Insights → Contributors |
-| 按目录浏览 | 文件树（天然按 `Memory/<Agent>/` 分区） |
-| 追一个决定 | Blame |
-| 评审改动 | Pull Request |
-| 定时任务 | Actions |
-
-见 `docs/ZeroServer.md`。这个自托管看板的价值在于：**私有远端没有 Web 界面**，或者**你想自己控制 UI**。
+Apache-2.0，与 MindMesh 主仓库一致。
