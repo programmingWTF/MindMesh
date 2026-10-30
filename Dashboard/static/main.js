@@ -15,7 +15,8 @@ var META={
  Cursor:{c:"#E5E7EB",i:"cursor.png"},
  Antigravity:{c:"#3E87EA",i:"antigravity.png"},
  Codex:{c:"#10A37F",i:"codex.svg"},
- Gemini:{c:"#7C6FE0",i:"gemini.png"}
+ Gemini:{c:"#7C6FE0",i:"gemini.png"},
+ Muse:{c:"#1877F2",i:"muse.png"}
 };
 function hexA(h,a){var r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);return "rgba("+r+","+g+","+b+","+a+")";}
 var HUES=[16,205,142,275,32,330,190,55,255,105,20,300,170];
